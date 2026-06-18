@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('limit_amount', 15, 2);
             $table->integer('month');
             $table->integer('year');
-            $table->unique(['user_id', 'category_id', 'month', 'year']);
+            $table->unique(['user_id', 'category_id', 'month', 'year']); //unique constraints
             $table->timestamps();
         });
     }
