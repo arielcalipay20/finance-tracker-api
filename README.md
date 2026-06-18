@@ -42,25 +42,24 @@
 
 ### Installation
 
-Step by step commands to clone, install, configure, and run
-
+```bash
 git clone https://github.com/arielcalipay20/finance-tracker-api.git
 cd finance-tracker-api
 composer install
 php artisan install:api
 cp .env.example .env
-edit .env with your database credentials
+# Edit .env with your database credentials
 php artisan key:generate
 php artisan migrate
 php artisan serve
+```
 
 ## Design Decisions
 
--Using sanctum instead of other auth because my auth is not complex and this for my SPA
--Applied strict rate limiting (5 requests/minute) on auth routes
-to prevent brute force attacks, instead of the default 60 requests/minute
--Derive type instead of manually typing for better user experience
--Using first() instead of get() on finding transactions, categories, and budgets because get used for collections not single data
+- Used Sanctum over Passport because the project uses token-based auth for a SPA — no OAuth complexity needed.
+- Applied strict rate limiting (5 requests/minute) on auth routes to prevent brute force attacks instead of the default 60 requests/minute.
+- Transaction type is derived from the selected category instead of manually entered — prevents data inconsistency between category and transaction types.
+- Used `first()` instead of `get()` for single record lookups because `get()` returns a collection that is always truthy, breaking ownership checks.
 
 ## What's Next
 
