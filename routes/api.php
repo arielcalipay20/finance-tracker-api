@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -40,4 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/budgets', [BudgetController::class, 'store']);
     Route::put('/budgets/{id}', [BudgetController::class, 'update']);
     Route::delete('/budgets/{id}', [BudgetController::class, 'destroy']);
+
+    // dashboard route
+    Route::get('/dashboard/summary', [DashboardController::class, 'summary']);
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -35,19 +36,17 @@ class TransactionController extends Controller
         $type = $category->type;
 
         // create transaction
-        Transaction::create([
+        $transaction = Transaction::create([
             'user_id' => $request->user()->id,
             'category_id' => $request->category_id,
             'type' => $type,
             'amount' => $request->amount,
             'note' => $request->note,
-            'transaction_date' => $request->transaction_date
+            'transaction_date' => Carbon::parse($request->transaction_date)
         ]);
 
         // return response
-        return response()->json([
-            'message' => 'Transaction created!'
-        ], 201);
+        return response()->json($transaction->load('category'), 201);
     }
 
     // index method
@@ -92,9 +91,7 @@ class TransactionController extends Controller
         ]));
 
         // return response
-        return response()->json([
-            'message' => 'Transaction updated!'
-        ], 200);
+        return response()->json($transaction->load('category'), 200);
     }
 
     public function destroy(Request $request, $id)
