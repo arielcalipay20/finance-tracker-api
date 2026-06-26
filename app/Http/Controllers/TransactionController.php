@@ -87,7 +87,7 @@ class TransactionController extends Controller
         $transaction->update(array_filter([
             'amount' => $request->amount,
             'note' => $request->note,
-            'transaction_date' => $request->transaction_date
+            'transaction_date' => Carbon::parse($request->transaction_date)
         ]));
 
         // return response
