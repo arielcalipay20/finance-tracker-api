@@ -33,7 +33,7 @@ class BudgetController extends Controller
         }
 
         // create budget
-        Budget::create([
+        $budget = Budget::create([
             'user_id' => $request->user()->id,
             'category_id' => $request->category_id,
             'limit_amount' => $request->limit_amount,
@@ -42,9 +42,7 @@ class BudgetController extends Controller
         ]);
 
         // return response
-        return response()->json([
-            'message' => 'Budget created!'
-        ], 201);
+        return response()->json($budget->load('category'), 201);
     }
 
     // index method
@@ -89,9 +87,7 @@ class BudgetController extends Controller
         ]));
 
         // return response
-        return response()->json([
-            'message' => 'Budget updated!'
-        ], 200);
+        return response()->json($budget->load('category'), 200);
     }
 
     // destroy method
